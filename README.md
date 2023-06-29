@@ -1,3 +1,5 @@
+Download at [Modrinth](https://modrinth.com/mod/quickeffect) or [Curseforge](https://legacy.curseforge.com/minecraft/mc-mods/quick-effect/files)
+
 # QuickEffect
  
 Allows potion effects to be gained through their ingredients without brewing
