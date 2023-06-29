@@ -1,4 +1,4 @@
-Download at [Modrinth](https://modrinth.com/mod/quickeffect) or [Curseforge](https://legacy.curseforge.com/minecraft/mc-mods/quick-effect/files)
+## Download at [Modrinth](https://modrinth.com/mod/quickeffect) or [Curseforge](https://legacy.curseforge.com/minecraft/mc-mods/quick-effect/files)
 
 # QuickEffect
  
