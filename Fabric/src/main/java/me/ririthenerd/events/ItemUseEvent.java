@@ -52,22 +52,29 @@ public class ItemUseEvent implements UseItemCallback {
             subOne(playerEntity.getMainHandStack());
         }
         if(playerEntity.getMainHandStack().getItem().equals(Items.FERMENTED_SPIDER_EYE)){
+            int no = 3;
             if(playerEntity.hasStatusEffect(StatusEffects.JUMP_BOOST) || playerEntity.hasStatusEffect(StatusEffects.SPEED)){
                 playerEntity.removeStatusEffect(StatusEffects.SPEED);
                 playerEntity.removeStatusEffect(StatusEffects.JUMP_BOOST);
                 playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100));
                 subOne(playerEntity.getMainHandStack());
+                no--;
             }
             if(playerEntity.hasStatusEffect(StatusEffects.INSTANT_HEALTH) || playerEntity.hasStatusEffect(StatusEffects.POISON)){
                 playerEntity.removeStatusEffect(StatusEffects.INSTANT_HEALTH);
                 playerEntity.removeStatusEffect(StatusEffects.POISON);
                 playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 100));
                 subOne(playerEntity.getMainHandStack());
+                no--;
             }
             if(playerEntity.hasStatusEffect(StatusEffects.NIGHT_VISION)){
                 playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
                 playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 100));
                 subOne(playerEntity.getMainHandStack());
+                no--;
+            }
+            if(no == 3){
+                playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 100));
             }
         }
         if(playerEntity.getMainHandStack().getItem().equals(Items.GLOWSTONE_DUST)) {

@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "quickeffect",
 	"version": "${version}",
-	"name": "Quickeffect",
+	"name": "Quick Effect",
 	"description": "Allows potion effects to be gained through their ingredients without brewing",
 	"authors": [
 		"RiRiTheNerd"
