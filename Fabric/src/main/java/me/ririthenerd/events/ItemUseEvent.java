@@ -75,6 +75,7 @@ public class ItemUseEvent implements UseItemCallback {
             }
             if(no == 3){
                 playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 100));
+                subOne(playerEntity.getMainHandStack());
             }
         }
         if(playerEntity.getMainHandStack().getItem().equals(Items.GLOWSTONE_DUST)) {

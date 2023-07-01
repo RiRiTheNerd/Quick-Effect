@@ -78,6 +78,7 @@ public class ItemUse {
             }
             if(no == 3){
                 p.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100));
+                subOne(hand);
             }
         }
         if(e.getItemStack().getItem().equals(Items.REDSTONE)){
