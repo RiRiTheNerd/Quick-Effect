@@ -25,6 +25,7 @@ Using a Fermented Spider Eye while effects are active will give the player their
 - Slowness (Speed & Jump Boost)  
 - Instant Damage (Instant Health & Poison)  
 - Invisibility (Night Vision)
+- Weakness (If no corruptable effects are active)
   
 Using Redstone or Glowstone Dust will increase the effects time or amplifier respectively
 
