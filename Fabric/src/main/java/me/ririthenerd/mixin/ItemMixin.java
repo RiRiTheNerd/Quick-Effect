@@ -19,9 +19,6 @@ public class ItemMixin {
 		if(stack.getItem().equals(Items.GOLDEN_CARROT)){
 			user.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 100));
 		}
-		if(stack.getItem().equals(Items.SPIDER_EYE)){
-			user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
-		}
 		if(stack.getItem().equals(Items.PUFFERFISH)){
 			user.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 100));
 		}

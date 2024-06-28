@@ -18,21 +18,15 @@ import java.util.Map;
 
 public class ItemUseEvent implements UseItemCallback {
 
-    private static final StatusEffect[] corruptableEffects = {
-            StatusEffects.SPEED.value(),
-            StatusEffects.JUMP_BOOST.value(),
-            StatusEffects.NIGHT_VISION.value(),
-            StatusEffects.INSTANT_HEALTH.value(),
-            StatusEffects.POISON.value()
-    };
+    private static final int TIME_SECONDS = 10;
 
     @Override
     public TypedActionResult<ItemStack> interact(PlayerEntity p, World w, Hand h) {
         if(!p.raycast(4.5, 10f, true).getType().equals(HitResult.Type.BLOCK)){
             applyEffect(StatusEffects.SLOW_FALLING, p, Items.PHANTOM_MEMBRANE);
             if(p.getMainHandStack().getItem().equals(Items.TURTLE_SCUTE)) {
-                p.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 100));
-                p.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100));
+                p.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, TIME_SECONDS * 20));
+                p.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, TIME_SECONDS * 20));
                 subOne(p.getMainHandStack());
             }
             applyEffect(StatusEffects.REGENERATION, p, Items.GHAST_TEAR);
@@ -41,30 +35,38 @@ public class ItemUseEvent implements UseItemCallback {
             applyEffect(StatusEffects.INSTANT_HEALTH, p, Items.GLISTERING_MELON_SLICE);
             applyEffect(StatusEffects.JUMP_BOOST, p, Items.RABBIT_FOOT);
             applyEffect(StatusEffects.SPEED, p, Items.SUGAR);
+            applyEffect(StatusEffects.OOZING, p, Items.SLIME_BLOCK);
+            applyEffect(StatusEffects.INFESTED, p, Items.STONE);
+            applyEffect(StatusEffects.WIND_CHARGED, p, Items.BREEZE_ROD);
+            applyEffect(StatusEffects.WEAVING, p, Items.COBWEB);
 
             //Corrupted Effects
-            applyCorruptedEffect(p, Items.FERMENTED_SPIDER_EYE, StatusEffects.JUMP_BOOST, StatusEffects.SLOWNESS);
-            applyCorruptedEffect(p, Items.FERMENTED_SPIDER_EYE, StatusEffects.SPEED, StatusEffects.SLOWNESS);
-            applyCorruptedEffect(p, Items.FERMENTED_SPIDER_EYE, StatusEffects.INSTANT_HEALTH, StatusEffects.INSTANT_DAMAGE);
-            applyCorruptedEffect(p, Items.FERMENTED_SPIDER_EYE, StatusEffects.POISON, StatusEffects.INSTANT_DAMAGE);
-            applyCorruptedEffect(p, Items.FERMENTED_SPIDER_EYE, StatusEffects.NIGHT_VISION, StatusEffects.INVISIBILITY);
+            applyCorruptedEffect(p, StatusEffects.JUMP_BOOST, StatusEffects.SLOWNESS);
+            applyCorruptedEffect(p, StatusEffects.SPEED, StatusEffects.SLOWNESS);
+            applyCorruptedEffect(p, StatusEffects.INSTANT_HEALTH, StatusEffects.INSTANT_DAMAGE);
+            applyCorruptedEffect(p, StatusEffects.POISON, StatusEffects.INSTANT_DAMAGE);
+            applyCorruptedEffect(p, StatusEffects.NIGHT_VISION, StatusEffects.INVISIBILITY);
 
             //Effect Modifiers
             if(p.getMainHandStack().getItem().equals(Items.GLOWSTONE_DUST)) {
                 Map<RegistryEntry<StatusEffect>, StatusEffectInstance> se = p.getActiveStatusEffects();
-                for (RegistryEntry<StatusEffect> eff : se.keySet()){
-                    if(se.get(eff).getAmplifier() + 1 != 3){
-                        p.addStatusEffect(new StatusEffectInstance(eff, se.get(eff).getDuration(), se.get(eff).getAmplifier() + 1));
-                        subOne(p.getMainHandStack());
+                for (RegistryEntry<StatusEffect> eff : se.keySet()) {
+                    if (p.getMainHandStack().getItem().equals(Items.GLOWSTONE_DUST)) {
+                        if (se.get(eff).getAmplifier() + 1 != 3) {
+                            p.addStatusEffect(new StatusEffectInstance(eff, se.get(eff).getDuration(), se.get(eff).getAmplifier() + 1));
+                            subOne(p.getMainHandStack());
+                        }
                     }
                 }
             }
             if(p.getMainHandStack().getItem().equals(Items.REDSTONE)) {
                 Map<RegistryEntry<StatusEffect>, StatusEffectInstance> se = p.getActiveStatusEffects();
-                for (RegistryEntry<StatusEffect> eff : se.keySet()){
-                    if(!(se.get(eff).getDuration() + 20 >= 9600)){
-                        p.addStatusEffect(new StatusEffectInstance(eff, se.get(eff).getDuration() + 20, se.get(eff).getAmplifier()));
-                        subOne(p.getMainHandStack());
+                for (RegistryEntry<StatusEffect> eff : se.keySet()) {
+                    if (p.getMainHandStack().getItem().equals(Items.REDSTONE)) {
+                        if (!(se.get(eff).getDuration() + 20 >= 9600)) {
+                            p.addStatusEffect(new StatusEffectInstance(eff, se.get(eff).getDuration() + 20, se.get(eff).getAmplifier()));
+                            subOne(p.getMainHandStack());
+                        }
                     }
                 }
             }
@@ -78,26 +80,26 @@ public class ItemUseEvent implements UseItemCallback {
 
     private static void applyEffect(RegistryEntry<StatusEffect> e, PlayerEntity p, Item i){
         if(p.getMainHandStack().getItem().equals(i)) {
-            p.addStatusEffect(new StatusEffectInstance(e, 100));
+            p.addStatusEffect(new StatusEffectInstance(e, TIME_SECONDS * 20));
             subOne(p.getMainHandStack());
         }
     }
 
-    private static void applyCorruptedEffect(PlayerEntity p, Item i, RegistryEntry<StatusEffect> e, RegistryEntry<StatusEffect> ne){
+    private static void applyCorruptedEffect(PlayerEntity p, RegistryEntry<StatusEffect> e, RegistryEntry<StatusEffect> ne){
         int x = 0;
         Map<RegistryEntry<StatusEffect>, StatusEffectInstance> ae = p.getActiveStatusEffects();
-        for (RegistryEntry<StatusEffect> eff : ae.keySet()){
+        for (RegistryEntry<StatusEffect> ignored : ae.keySet()){
             x++;
         }
         if(x == 0 && p.getMainHandStack().getItem().equals(Items.FERMENTED_SPIDER_EYE)){
-            p.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 100));
+            p.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, TIME_SECONDS * 20));
             subOne(p.getMainHandStack());
         }else{
-            if(p.getMainHandStack().getItem().equals(i)){
+            if(p.getMainHandStack().getItem().equals(Items.FERMENTED_SPIDER_EYE)){
                 if(p.hasStatusEffect(e)){
                     if(p.hasStatusEffect(e)){
                         p.removeStatusEffect(e);
-                        p.addStatusEffect(new StatusEffectInstance(ne, 100));
+                        p.addStatusEffect(new StatusEffectInstance(ne, TIME_SECONDS * 20));
                         subOne(p.getMainHandStack());
                     }
                 }
