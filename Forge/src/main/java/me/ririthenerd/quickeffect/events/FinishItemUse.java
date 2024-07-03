@@ -19,9 +19,6 @@ public class FinishItemUse {
         if(e.getItem().getItem().equals(Items.GOLDEN_CARROT)){
             p.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 100));
         }
-        if(e.getItem().getItem().equals(Items.SPIDER_EYE)){
-            p.addEffect(new MobEffectInstance(MobEffects.POISON, 100));
-        }
         if(e.getItem().getItem().equals(Items.PUFFERFISH)){
             p.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 100));
         }

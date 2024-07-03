@@ -7,8 +7,5 @@ public class QuickEffect
 {
     public static final String MODID = "quickeffect";
 
-    public QuickEffect()
-    {
-
-    }
+    public QuickEffect() {}
 }

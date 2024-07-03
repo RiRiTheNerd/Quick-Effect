@@ -1,5 +1,6 @@
 package me.ririthenerd.quickeffect.events;
 
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -23,10 +24,10 @@ public class ItemUse {
 
         if(!p.pick(4.5, 10, true).getType().equals(HitResult.Type.BLOCK)){
             if(e.getItemStack().getItem().equals(Items.PHANTOM_MEMBRANE)){
-                p.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING));
+                p.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 100));
                 subOne(hand);
             }
-            if(e.getItemStack().getItem().equals(Items.SCUTE)){
+            if(e.getItemStack().getItem().equals(Items.TURTLE_SCUTE)){
                 p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100));
                 p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100));
                 subOne(hand);
@@ -55,6 +56,20 @@ public class ItemUse {
                 p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100));
                 subOne(hand);
             }
+
+            if(e.getItemStack().getItem().equals(Items.STONE)){
+                p.addEffect(new MobEffectInstance(MobEffects.INFESTED, 100));
+                subOne(hand);
+            }
+            if(e.getItemStack().getItem().equals(Items.COBWEB)){
+                p.addEffect(new MobEffectInstance(MobEffects.WEAVING, 100));
+                subOne(hand);
+            }
+            if(e.getItemStack().getItem().equals(Items.SLIME_BLOCK)){
+                p.addEffect(new MobEffectInstance(MobEffects.OOZING, 100));
+                subOne(hand);
+            }
+
             if(e.getItemStack().getItem().equals(Items.FERMENTED_SPIDER_EYE)){
                 int no = 3;
                 if(p.hasEffect(MobEffects.MOVEMENT_SPEED) || p.hasEffect(MobEffects.JUMP)){
@@ -83,8 +98,8 @@ public class ItemUse {
                 }
             }
             if(e.getItemStack().getItem().equals(Items.REDSTONE)){
-                Map<MobEffect, MobEffectInstance> se = p.getActiveEffectsMap();
-                for (MobEffect eff : se.keySet()){
+                Map<Holder<MobEffect>, MobEffectInstance> se = p.getActiveEffectsMap();
+                for (Holder<MobEffect> eff : se.keySet()){
                     if(!(se.get(eff).getDuration() + 20 >= 9600)){
                         p.addEffect(new MobEffectInstance(eff, se.get(eff).getDuration() + 20, se.get(eff).getAmplifier()));
                         subOne(hand);
@@ -92,8 +107,8 @@ public class ItemUse {
                 }
             }
             if(e.getItemStack().getItem().equals(Items.GLOWSTONE_DUST)){
-                Map<MobEffect, MobEffectInstance> se = p.getActiveEffectsMap();
-                for (MobEffect eff : se.keySet()){
+                Map<Holder<MobEffect>, MobEffectInstance> se = p.getActiveEffectsMap();
+                for (Holder<MobEffect> eff : se.keySet()){
                     if(!(se.get(eff).getDuration() + 20 >= 9600)){
                         p.addEffect(new MobEffectInstance(eff, se.get(eff).getDuration(), se.get(eff).getAmplifier() + 1));
                         subOne(hand);
