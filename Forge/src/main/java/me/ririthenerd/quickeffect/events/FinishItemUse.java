@@ -17,10 +17,10 @@ public class FinishItemUse {
         Player p = (Player) e.getEntity();
 
         if(e.getItem().getItem().equals(Items.GOLDEN_CARROT)){
-            p.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 100));
+            p.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 200));
         }
         if(e.getItem().getItem().equals(Items.PUFFERFISH)){
-            p.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 100));
+            p.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200));
         }
     }
 }
